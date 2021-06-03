@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Choose a Github user</h1>
+        <h1>1. Choose a Github user</h1>
       </header>
       <main>
         <form>

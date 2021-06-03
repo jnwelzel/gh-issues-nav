@@ -8,7 +8,7 @@ const Repo = () => {
   return (
     <div className={styles.Repo}>
       <header>
-        <h1>Choose an issue</h1>
+        <h1>3. Choose an issue</h1>
       </header>
       <main>
         <h2>
