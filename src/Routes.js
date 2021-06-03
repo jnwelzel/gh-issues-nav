@@ -1,7 +1,8 @@
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
-import Explorer from "./features/explorer/Explorer";
-import { Repos } from "./features/repos/Repos";
+import Issue from "./features/issue/Issue";
+import Repo from "./features/repo/Repo";
+import User from "./features/user/User";
 
 const Routes = () => {
   return (
@@ -10,8 +11,9 @@ const Routes = () => {
         <Route exact path="/">
           <App />
         </Route>
-        <Route path="/:user/:repo" children={<Explorer />} />
-        <Route path="/:user" children={<Repos />} />
+        <Route path="/:user/:repo/:issue" children={<Issue />} />
+        <Route path="/:user/:repo" children={<Repo />} />
+        <Route path="/:user" children={<User />} />
       </Switch>
     </Router>
   );
