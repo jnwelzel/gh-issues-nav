@@ -10,6 +10,11 @@ export const authenticateGitHubUser = async ({ proxyUrl, gitHubCode }) => {
     throw new Error(message);
   }
 
-  const user = await response.json();
-  return user;
+  const data = await response.json();
+  if (data.message) {
+    const message = `Error while trying to authenticate with GitHub: ${data.message}`;
+    throw new Error(message);
+  }
+
+  return data;
 };

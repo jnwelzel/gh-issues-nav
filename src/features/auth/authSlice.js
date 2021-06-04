@@ -33,14 +33,13 @@ export const authSlice = createSlice({
         state.status = "loading";
       })
       .addCase(fetchUserAsync.fulfilled, (state, action) => {
+        const user = action.payload;
         state.status = "idle";
-        state.user = action.payload;
-        state.isLoggedIn = action.payload !== null;
+        state.user = user;
+        state.isLoggedIn = true;
 
-        localStorage.setItem("isLoggedIn", action.payload !== null);
-        localStorage.setItem("user", JSON.stringify(action.payload));
-
-        window.location.href = "/";
+        localStorage.setItem("isLoggedIn", true);
+        localStorage.setItem("user", JSON.stringify(user));
       });
   },
 });

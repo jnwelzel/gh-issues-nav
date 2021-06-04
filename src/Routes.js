@@ -8,9 +8,6 @@ import {
 import App from "./App";
 import Auth from "./features/auth/Auth";
 import { selectIsLoggedIn } from "./features/auth/authSlice";
-import Issue from "./features/issue/Issue";
-import Repo from "./features/repo/Repo";
-import User from "./features/user/User";
 
 // A wrapper for <Route> that redirects to the login
 // screen if you're not yet authenticated.
@@ -45,9 +42,6 @@ const Routes = () => {
         <Route path="/login">
           <Auth />
         </Route>
-        <PrivateRoute path="/:user/:repo/:issue" children={<Issue />} />
-        <PrivateRoute path="/:user/:repo" children={<Repo />} />
-        <PrivateRoute path="/:user" children={<User />} />
       </Switch>
     </Router>
   );
