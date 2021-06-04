@@ -12,7 +12,9 @@ const LoggedInLinks = ({ email }) => {
 
   return (
     <Fragment>
-      <li>{email}</li>
+      <li>
+        You're logged in as <strong>{email}</strong>
+      </li>
       <li>
         <button type="button" onClick={onClickHandler}>
           Logout
