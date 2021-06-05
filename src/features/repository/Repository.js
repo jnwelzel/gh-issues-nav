@@ -7,6 +7,8 @@ import {
   selectState,
   setRepoInfo,
   setIssuesState,
+  selectSearch,
+  setSearch,
 } from "./repositorySlice";
 import Template from "../../Template";
 import { useQuery } from "@apollo/client";
@@ -18,11 +20,15 @@ function Repository() {
   const repoLogin = useSelector(selectRepoLogin);
   const repoName = useSelector(selectRepoName);
   const issuesState = useSelector(selectState);
+  const search = useSelector(selectSearch);
 
   const [loginValue, setLoginValue] = useState(repoLogin);
   const [nameValue, setNameValue] = useState(repoName);
+  const [searchValue, setSearchValue] = useState(search);
   const { loading, error, data } = useQuery(GET_REPOSITORY_ISSUES, {
-    variables: { name: repoName, login: repoLogin, states: [issuesState] },
+    variables: {
+      query: `repo:${repoLogin}/${repoName} state:${issuesState} type:issue sort:created-desc in:title in:body ${search}`,
+    },
   });
   const [isEditing, setIsEditing] = useState(false);
 
@@ -58,7 +64,18 @@ function Repository() {
     dispatch(setIssuesState(e.target.value));
   };
 
-  const issues = data?.repositoryOwner?.repository?.issues?.nodes;
+  const onChangeSearch = (e) => {
+    setSearchValue(e.target.value);
+  };
+
+  const onSubmitSearch = (e) => {
+    e.preventDefault();
+    const value = searchValue.trim();
+    dispatch(setSearch(value));
+  };
+
+  const issues = data?.search?.nodes;
+  const totalCount = data?.search?.issueCount || 0;
 
   return (
     <Template>
@@ -83,7 +100,7 @@ function Repository() {
                 value={nameValue}
                 onChange={onChangeName}
               />
-              <button type="submit">Ok</button>
+              <button type="submit">Save</button>
             </form>
           )}
           {!isEditing && (
@@ -94,30 +111,40 @@ function Repository() {
               </button>
             </div>
           )}
-          <h2>Issues</h2>
-          <div>State</div>
+          <h2>Issues ({totalCount})</h2>
+          <p>State</p>
           <div>
             <input
               type="radio"
               id="open"
               name="state"
-              value="OPEN"
-              checked={issuesState === "OPEN"}
+              value="open"
+              checked={issuesState === "open"}
               onChange={onChangeIssuesState}
             />
-            <label htmlFor="open">OPEN</label>
+            <label htmlFor="open">Open</label>
           </div>
           <div>
             <input
               type="radio"
               id="closed"
               name="state"
-              value="CLOSED"
-              checked={issuesState === "CLOSED"}
+              value="closed"
+              checked={issuesState === "closed"}
               onChange={onChangeIssuesState}
             />
-            <label htmlFor="closed">CLOSED</label>
+            <label htmlFor="closed">Closed</label>
           </div>
+          <p>Search</p>
+          <form onSubmit={onSubmitSearch}>
+            <input
+              type="search"
+              name="search"
+              id="search"
+              onChange={onChangeSearch}
+            />
+            <button type="submit">Search</button>
+          </form>
           {loading && <h2>Loading issues...</h2>}
           {error && (
             <h2>Ops, something went wrong while fetching the issues :(</h2>
