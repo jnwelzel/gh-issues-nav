@@ -6,11 +6,15 @@ import { store } from "./app/store";
 import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import Routes from "./Routes";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "./apollo";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Routes />
+      <ApolloProvider client={client}>
+        <Routes />
+      </ApolloProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

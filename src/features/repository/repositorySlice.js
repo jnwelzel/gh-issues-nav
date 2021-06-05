@@ -1,21 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  repositoryName: null,
+  repoLogin: "facebook",
+  repoName: "react",
 };
 
 export const repositorySlice = createSlice({
   name: "repository",
   initialState,
   reducers: {
-    setRepository: (state, action) => {
-      state.repositoryName = action.payload;
+    setRepoInfo: (state, action) => {
+      const { login, name } = action.payload;
+      state.repoLogin = login;
+      state.repoName = name;
     },
   },
 });
 
-export const { setRepository } = repositorySlice.actions;
+export const { setRepoInfo } = repositorySlice.actions;
 
-export const selectRepository = (state) => state.repository.repositoryName;
+export const selectRepoName = (state) => state.repository.repoName;
+export const selectRepoLogin = (state) => state.repository.repoLogin;
 
 export default repositorySlice.reducer;

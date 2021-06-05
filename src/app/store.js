@@ -5,6 +5,6 @@ import repositoryReducer from "../features/repository/repositorySlice";
 export const store = configureStore({
   reducer: {
     auth: authSliceReducer,
-    user: repositoryReducer,
+    repository: repositoryReducer,
   },
 });

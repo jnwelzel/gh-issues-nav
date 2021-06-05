@@ -5,7 +5,7 @@ import {
   BrowserRouter as Router,
   Redirect,
 } from "react-router-dom";
-import App from "./App";
+import Repository from "./features/repository/Repository";
 import Auth from "./features/auth/Auth";
 import { selectIsLoggedIn } from "./features/auth/authSlice";
 
@@ -37,7 +37,7 @@ const Routes = () => {
     <Router>
       <Switch>
         <PrivateRoute exact path="/">
-          <App />
+          <Repository />
         </PrivateRoute>
         <Route path="/login">
           <Auth />
