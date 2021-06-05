@@ -39,11 +39,10 @@ function Repository() {
     const name = nameValue.trim();
 
     if (!login || !name) {
-      // TODO Validation
+      // TODO Show UI message
       return;
     }
-    // TODO Check if repo exists at: login/name,
-    // then dispatch
+
     dispatch(setRepoInfo({ login, name }));
     setIsEditing(false);
   };
@@ -74,7 +73,7 @@ function Repository() {
     dispatch(setSearch(value));
   };
 
-  const issues = data?.search?.nodes;
+  const issues = data?.search?.nodes || [];
   const totalCount = data?.search?.issueCount || 0;
 
   return (
@@ -149,7 +148,8 @@ function Repository() {
           {error && (
             <h2>Ops, something went wrong while fetching the issues :(</h2>
           )}
-          {issues &&
+          {issues.length === 0 && !loading && <h2>Repository not found</h2>}
+          {issues.length > 0 &&
             issues.map((issue) => (
               <IssueItem
                 key={issue.id}
