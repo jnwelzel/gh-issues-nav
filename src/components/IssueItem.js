@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import ReactMarkdown from "react-markdown";
+import gfm from "remark-gfm";
 
 import styles from "./IssueItem.module.css";
 import { Link } from "react-router-dom";
@@ -10,7 +12,9 @@ const IssueItem = ({ title, number, totalComments, owner, repo }) => {
     <div className={styles.IssueItem}>
       <div className={styles["IssueItem-titleAndCount"]}>
         <div>
-          <Link to={resourceUrl}>{title}</Link>
+          <Link to={resourceUrl}>
+            <ReactMarkdown remarkPlugins={[gfm]}>{title}</ReactMarkdown>
+          </Link>
         </div>
         <div className={styles["IssueItem-commentsCount"]}>
           <Link to={resourceUrl}>{totalComments}</Link>

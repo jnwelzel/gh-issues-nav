@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useQuery } from "@apollo/client";
+
 import styles from "./Repository.module.css";
 import {
   selectRepoName,
@@ -11,7 +13,6 @@ import {
   setSearch,
 } from "./repositorySlice";
 import Template from "../../Template";
-import { useQuery } from "@apollo/client";
 import { GET_REPOSITORY_ISSUES } from "./getRepositoryIssuesQuery";
 import IssueItem from "../../components/IssueItem";
 
