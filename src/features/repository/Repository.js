@@ -156,6 +156,8 @@ function Repository() {
                 title={issue.title}
                 number={issue.number}
                 totalComments={issue.comments.totalCount}
+                owner={repoLogin}
+                repo={repoName}
               />
             ))}
         </main>
