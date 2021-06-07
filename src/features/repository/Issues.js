@@ -1,17 +1,16 @@
 import { useQuery } from "@apollo/client";
 import throttle from "lodash/throttle";
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useContext, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import IssueItem from "../../components/IssueItem";
 import AppContext from "../../contexts/AppContext";
 import { GET_REPOSITORY_ISSUES } from "./getRepositoryIssuesQuery";
+import { IssuesForm } from "./IssuesForm";
 import {
   selectRepoLogin,
   selectRepoName,
   selectSearch,
   selectState,
-  setIssuesState,
-  setSearch,
 } from "./repositorySlice";
 
 const onLoadMore = throttle((endCursor, hasNextPage, loading, fetchMore) => {
@@ -25,12 +24,10 @@ const onLoadMore = throttle((endCursor, hasNextPage, loading, fetchMore) => {
 }, 2000);
 
 export const Issues = () => {
-  const dispatch = useDispatch();
   const repoLogin = useSelector(selectRepoLogin);
   const repoName = useSelector(selectRepoName);
   const issuesState = useSelector(selectState);
   const search = useSelector(selectSearch);
-  const [searchValue, setSearchValue] = useState(search);
   const { loading, error, data, fetchMore } = useQuery(GET_REPOSITORY_ISSUES, {
     variables: {
       query: `repo:${repoLogin}/${repoName} state:${issuesState} type:issue sort:created-desc in:title in:body ${search}`,
@@ -62,54 +59,10 @@ export const Issues = () => {
     };
   }, [footerRef, endCursor, hasNextPage, loading, fetchMore]);
 
-  const onChangeIssuesState = (e) => {
-    dispatch(setIssuesState(e.target.value));
-  };
-  const onSubmitSearch = (e) => {
-    e.preventDefault();
-    const value = searchValue.trim();
-    dispatch(setSearch(value));
-  };
-  const onChangeSearch = (e) => {
-    setSearchValue(e.target.value);
-  };
-
   return (
     <React.Fragment>
       <h2>Issues ({totalCount})</h2>
-      <p>State</p>
-      <div>
-        <input
-          type="radio"
-          id="open"
-          name="state"
-          value="open"
-          checked={issuesState === "open"}
-          onChange={onChangeIssuesState}
-        />
-        <label htmlFor="open">Open</label>
-      </div>
-      <div>
-        <input
-          type="radio"
-          id="closed"
-          name="state"
-          value="closed"
-          checked={issuesState === "closed"}
-          onChange={onChangeIssuesState}
-        />
-        <label htmlFor="closed">Closed</label>
-      </div>
-      <p>Search</p>
-      <form onSubmit={onSubmitSearch}>
-        <input
-          type="search"
-          name="search"
-          id="search"
-          onChange={onChangeSearch}
-        />
-        <button type="submit">Search</button>
-      </form>
+      <IssuesForm />
       {loading && <h2>Loading issues...</h2>}
       {error && <h2>Ops, something went wrong while fetching the issues :(</h2>}
       {!error && issues.length === 0 && !loading && (
