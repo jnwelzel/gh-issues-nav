@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, {
+  Fragment,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "@apollo/client";
-
 import styles from "./Repository.module.css";
 import {
   selectRepoName,
@@ -12,11 +17,22 @@ import {
   selectSearch,
   setSearch,
 } from "./repositorySlice";
-import Template from "../../Template";
 import { GET_REPOSITORY_ISSUES } from "./getRepositoryIssuesQuery";
 import IssueItem from "../../components/IssueItem";
+import AppContext from "../../contexts/AppContext";
+import { throttle } from "lodash";
 
-function Repository() {
+const onLoadMore = throttle((endCursor, hasNextPage, loading, fetchMore) => {
+  if (hasNextPage && !loading) {
+    fetchMore({
+      variables: {
+        cursor: endCursor,
+      },
+    });
+  }
+}, 3000);
+
+const Repository = () => {
   const dispatch = useDispatch();
   const repoLogin = useSelector(selectRepoLogin);
   const repoName = useSelector(selectRepoName);
@@ -26,7 +42,6 @@ function Repository() {
   const [loginValue, setLoginValue] = useState(repoLogin);
   const [nameValue, setNameValue] = useState(repoName);
   const [searchValue, setSearchValue] = useState(search);
-
   const { loading, error, data, fetchMore } = useQuery(GET_REPOSITORY_ISSUES, {
     variables: {
       query: `repo:${repoLogin}/${repoName} state:${issuesState} type:issue sort:created-desc in:title in:body ${search}`,
@@ -34,20 +49,32 @@ function Repository() {
     },
   });
   const [isEditing, setIsEditing] = useState(false);
+  const footerObserver = useRef();
+  const { footerRef } = useContext(AppContext);
 
+  const hasNextPage = data?.search?.pageInfo?.hasNextPage;
+  const endCursor = data?.search?.pageInfo?.endCursor;
   const issues = data?.search?.edges || [];
   const totalCount = data?.search?.issueCount || 0;
-  const hasNextPage = data?.search?.pageInfo?.hasNextPage;
 
-  const onClickLoadMore = () => {
-    if (hasNextPage) {
-      fetchMore({
-        variables: {
-          cursor: data?.search?.pageInfo?.endCursor,
-        },
+  useEffect(() => {
+    const footerNode = footerRef.current;
+    if ("IntersectionObserver" in window) {
+      footerObserver.current = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          onLoadMore(endCursor, hasNextPage, loading, fetchMore);
+        }
       });
     }
-  };
+
+    footerObserver.current.observe(footerNode);
+
+    return () => {
+      if (footerObserver.current) {
+        footerObserver.current.unobserve(footerNode);
+      }
+    };
+  }, [footerRef, endCursor, hasNextPage, loading, fetchMore]);
 
   const onSubmitRepository = (e) => {
     e.preventDefault();
@@ -91,7 +118,7 @@ function Repository() {
   };
 
   return (
-    <Template>
+    <Fragment>
       <div className={styles.Repository}>
         <header>
           <h1>Choose a repo</h1>
@@ -178,12 +205,12 @@ function Repository() {
               />
             ))}
           {hasNextPage && !loading && (
-            <button onClick={onClickLoadMore}>Load more</button>
+            <button onClick={onLoadMore}>Load more</button>
           )}
         </main>
       </div>
-    </Template>
+    </Fragment>
   );
-}
+};
 
 export default Repository;

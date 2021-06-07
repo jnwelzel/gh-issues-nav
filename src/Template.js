@@ -1,21 +1,23 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import classNames from "classnames";
-import React, { Fragment } from "react";
+import React, { Fragment, useRef } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "./features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { logout } from "./features/auth/authSlice";
+import AppContext from "./contexts/AppContext";
 
 const Template = ({ children }) => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+  const footerRef = useRef();
 
   const onClickHandler = (e) => {
     dispatch(logout());
   };
 
   return (
-    <Fragment>
+    <AppContext.Provider value={{ footerRef }}>
       <Disclosure as="nav" className="bg-gray-800">
         <div>GitHub Issues Navigator</div>
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -88,7 +90,10 @@ const Template = ({ children }) => {
         </div>
       </Disclosure>
       {children}
-    </Fragment>
+      <footer ref={footerRef}>
+        <h1 id="footer">Footer</h1>
+      </footer>
+    </AppContext.Provider>
   );
 };
 

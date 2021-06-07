@@ -1,10 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 
-import Template from "../../Template";
 import { GET_ISSUE } from "./getIssueQuery";
 import CommentItem from "../../components/CommentItem";
 
@@ -16,7 +15,7 @@ const Issue = () => {
   const comments = data?.resource?.comments?.nodes || [];
 
   return (
-    <Template>
+    <Fragment>
       <img
         src={data?.resource?.author?.avatarUrl}
         alt="Issue author"
@@ -42,7 +41,7 @@ const Issue = () => {
           />
         ))}
       </article>
-    </Template>
+    </Fragment>
   );
 };
 
