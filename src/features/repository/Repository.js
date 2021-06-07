@@ -26,17 +26,28 @@ function Repository() {
   const [loginValue, setLoginValue] = useState(repoLogin);
   const [nameValue, setNameValue] = useState(repoName);
   const [searchValue, setSearchValue] = useState(search);
+
   const { loading, error, data, fetchMore } = useQuery(GET_REPOSITORY_ISSUES, {
     variables: {
       query: `repo:${repoLogin}/${repoName} state:${issuesState} type:issue sort:created-desc in:title in:body ${search}`,
+      cursor: null,
     },
   });
   const [isEditing, setIsEditing] = useState(false);
 
-  const issues = data?.search?.nodes || [];
+  const issues = data?.search?.edges || [];
   const totalCount = data?.search?.issueCount || 0;
+  const hasNextPage = data?.search?.pageInfo?.hasNextPage;
 
-  const onClickLoadMore = () => {};
+  const onClickLoadMore = () => {
+    if (hasNextPage) {
+      fetchMore({
+        variables: {
+          cursor: data?.search?.pageInfo?.endCursor,
+        },
+      });
+    }
+  };
 
   const onSubmitRepository = (e) => {
     e.preventDefault();
@@ -156,17 +167,19 @@ function Repository() {
             <h2>Repository not found</h2>
           )}
           {issues.length > 0 &&
-            issues.map((issue) => (
+            issues.map(({ node }) => (
               <IssueItem
-                key={issue.id}
-                title={issue.title}
-                number={issue.number}
-                totalComments={issue.comments.totalCount}
+                key={node.id}
+                title={node.title}
+                number={node.number}
+                totalComments={node.comments.totalCount}
                 owner={repoLogin}
                 repo={repoName}
               />
             ))}
-          <button onClick={onClickLoadMore}>Load more</button>
+          {hasNextPage && !loading && (
+            <button onClick={onClickLoadMore}>Load more</button>
+          )}
         </main>
       </div>
     </Template>
