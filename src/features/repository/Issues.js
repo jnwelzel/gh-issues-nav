@@ -38,8 +38,8 @@ export const Issues = () => {
   const { footerRef } = useContext(AppContext);
   const hasNextPage = data?.search?.pageInfo?.hasNextPage;
   const endCursor = data?.search?.pageInfo?.endCursor;
-  const issues = data?.search?.edges || [];
-  const totalCount = data?.search?.issueCount || 0;
+  const issues = data?.search?.edges ?? [];
+  const totalCount = data?.search?.issueCount ?? 0;
   useEffect(() => {
     const footerNode = footerRef.current;
     if ("IntersectionObserver" in window) {
