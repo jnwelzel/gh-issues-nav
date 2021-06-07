@@ -1,7 +1,7 @@
 import QueryString from "qs";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import styles from "./Auth.module.css";
 import { fetchUserAsync, selectUser } from "./authSlice";
@@ -32,7 +32,7 @@ const Auth = () => {
   }, [dispatch, history, location]);
 
   if (user) {
-    return <Redirect to="/" />;
+    window.location.href = "/";
   }
   return (
     <div className={styles.Auth}>

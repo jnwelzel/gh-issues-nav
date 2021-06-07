@@ -11,11 +11,11 @@ import { client } from "./apollo";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <ApolloProvider client={client}>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
         <Routes />
-      </ApolloProvider>
-    </Provider>
+      </Provider>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
