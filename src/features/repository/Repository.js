@@ -30,7 +30,7 @@ const onLoadMore = throttle((endCursor, hasNextPage, loading, fetchMore) => {
       },
     });
   }
-}, 3000);
+}, 2000);
 
 const Repository = () => {
   const dispatch = useDispatch();
@@ -204,9 +204,6 @@ const Repository = () => {
                 repo={repoName}
               />
             ))}
-          {hasNextPage && !loading && (
-            <button onClick={onLoadMore}>Load more</button>
-          )}
         </main>
       </div>
     </Fragment>
