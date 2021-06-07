@@ -28,9 +28,11 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "remark-gfm": "^1.0.0",
+    "source-map-explorer": "^2.5.2",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "concurrently \"cd server && nodemon index.js \" \"craco start\" ",
     "build": "craco build",
     "test": "craco test",
