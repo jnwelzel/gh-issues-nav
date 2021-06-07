@@ -20,7 +20,7 @@ import {
 import { GET_REPOSITORY_ISSUES } from "./getRepositoryIssuesQuery";
 import IssueItem from "../../components/IssueItem";
 import AppContext from "../../contexts/AppContext";
-import { throttle } from "lodash/throttle";
+import throttle from "lodash/throttle";
 
 const onLoadMore = throttle((endCursor, hasNextPage, loading, fetchMore) => {
   if (hasNextPage && !loading) {
