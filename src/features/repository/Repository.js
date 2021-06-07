@@ -12,7 +12,6 @@ import {
   selectRepoName,
   selectRepoLogin,
   selectState,
-  setRepoInfo,
   setIssuesState,
   selectSearch,
   setSearch,
@@ -21,6 +20,7 @@ import { GET_REPOSITORY_ISSUES } from "./getRepositoryIssuesQuery";
 import IssueItem from "../../components/IssueItem";
 import AppContext from "../../contexts/AppContext";
 import throttle from "lodash/throttle";
+import RepoForm from "./RepoForm";
 
 const onLoadMore = throttle((endCursor, hasNextPage, loading, fetchMore) => {
   if (hasNextPage && !loading) {
@@ -39,8 +39,6 @@ const Repository = () => {
   const issuesState = useSelector(selectState);
   const search = useSelector(selectSearch);
 
-  const [loginValue, setLoginValue] = useState(repoLogin);
-  const [nameValue, setNameValue] = useState(repoName);
   const [searchValue, setSearchValue] = useState(search);
   const { loading, error, data, fetchMore } = useQuery(GET_REPOSITORY_ISSUES, {
     variables: {
@@ -48,7 +46,6 @@ const Repository = () => {
       cursor: null,
     },
   });
-  const [isEditing, setIsEditing] = useState(false);
   const footerObserver = useRef();
   const { footerRef } = useContext(AppContext);
 
@@ -76,33 +73,6 @@ const Repository = () => {
     };
   }, [footerRef, endCursor, hasNextPage, loading, fetchMore]);
 
-  const onSubmitRepository = (e) => {
-    e.preventDefault();
-
-    const login = loginValue.trim();
-    const name = nameValue.trim();
-
-    if (!login || !name) {
-      // TODO Show UI message
-      return;
-    }
-
-    dispatch(setRepoInfo({ login, name }));
-    setIsEditing(false);
-  };
-
-  const onChangeLogin = (e) => {
-    setLoginValue(e.target.value);
-  };
-
-  const onChangeName = (e) => {
-    setNameValue(e.target.value);
-  };
-
-  const onClickEdit = () => {
-    setIsEditing(true);
-  };
-
   const onChangeIssuesState = (e) => {
     dispatch(setIssuesState(e.target.value));
   };
@@ -120,38 +90,8 @@ const Repository = () => {
   return (
     <Fragment>
       <div className={styles.Repository}>
-        <header>
-          <h1>Choose a repo</h1>
-        </header>
         <main>
-          {isEditing && (
-            <form onSubmit={onSubmitRepository}>
-              <input
-                type="text"
-                name="login"
-                placeholder="facebook"
-                value={loginValue}
-                onChange={onChangeLogin}
-              />
-              <input
-                type="text"
-                name="name"
-                placeholder="react"
-                value={nameValue}
-                onChange={onChangeName}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              />
-              <button type="submit">Save</button>
-            </form>
-          )}
-          {!isEditing && (
-            <div>
-              {`${repoLogin}/${repoName}`}
-              <button type="button" onClick={onClickEdit}>
-                Edit
-              </button>
-            </div>
-          )}
+          <RepoForm />
           <h2>Issues ({totalCount})</h2>
           <p>State</p>
           <div>
