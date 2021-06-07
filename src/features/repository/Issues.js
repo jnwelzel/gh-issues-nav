@@ -49,7 +49,6 @@ export const Issues = () => {
         }
       });
     }
-
     footerObserver.current.observe(footerNode);
 
     return () => {
