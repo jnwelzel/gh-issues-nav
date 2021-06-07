@@ -14,6 +14,12 @@ export const GET_REPOSITORY_ISSUES = gql`
         }
       }
       issueCount
+      pageInfo {
+        startCursor
+        hasNextPage
+        endCursor
+        hasPreviousPage
+      }
     }
   }
 `;

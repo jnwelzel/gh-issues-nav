@@ -26,12 +26,17 @@ function Repository() {
   const [loginValue, setLoginValue] = useState(repoLogin);
   const [nameValue, setNameValue] = useState(repoName);
   const [searchValue, setSearchValue] = useState(search);
-  const { loading, error, data } = useQuery(GET_REPOSITORY_ISSUES, {
+  const { loading, error, data, fetchMore } = useQuery(GET_REPOSITORY_ISSUES, {
     variables: {
       query: `repo:${repoLogin}/${repoName} state:${issuesState} type:issue sort:created-desc in:title in:body ${search}`,
     },
   });
   const [isEditing, setIsEditing] = useState(false);
+
+  const issues = data?.search?.nodes || [];
+  const totalCount = data?.search?.issueCount || 0;
+
+  const onClickLoadMore = () => {};
 
   const onSubmitRepository = (e) => {
     e.preventDefault();
@@ -74,9 +79,6 @@ function Repository() {
     dispatch(setSearch(value));
   };
 
-  const issues = data?.search?.nodes || [];
-  const totalCount = data?.search?.issueCount || 0;
-
   return (
     <Template>
       <div className={styles.Repository}>
@@ -99,6 +101,7 @@ function Repository() {
                 placeholder="react"
                 value={nameValue}
                 onChange={onChangeName}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               />
               <button type="submit">Save</button>
             </form>
@@ -149,7 +152,9 @@ function Repository() {
           {error && (
             <h2>Ops, something went wrong while fetching the issues :(</h2>
           )}
-          {issues.length === 0 && !loading && <h2>Repository not found</h2>}
+          {!error && issues.length === 0 && !loading && (
+            <h2>Repository not found</h2>
+          )}
           {issues.length > 0 &&
             issues.map((issue) => (
               <IssueItem
@@ -161,6 +166,7 @@ function Repository() {
                 repo={repoName}
               />
             ))}
+          <button onClick={onClickLoadMore}>Load more</button>
         </main>
       </div>
     </Template>

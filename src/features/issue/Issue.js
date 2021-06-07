@@ -14,7 +14,6 @@ const Issue = () => {
     variables: { url: location.pathname },
   });
   const comments = data?.resource?.comments?.nodes || [];
-  console.log(">>>>>>>>>>>>", data);
 
   return (
     <Template>

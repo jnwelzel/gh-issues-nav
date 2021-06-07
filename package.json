@@ -4,14 +4,20 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.3.19",
+    "@craco/craco": "^6.1.2",
+    "@headlessui/react": "^1.2.0",
     "@reduxjs/toolkit": "^1.5.1",
+    "@tailwindcss/forms": "^0.3.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "autoprefixer": "^9",
+    "classnames": "^2.3.1",
     "concurrently": "^6.2.0",
     "express": "^4.17.1",
     "form-data": "^4.0.0",
     "graphql": "^15.5.0",
+    "postcss": "^7",
     "qs": "^6.10.1",
     "react": "^17.0.2",
     "react-apollo": "^3.1.5",
@@ -20,12 +26,13 @@
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "remark-gfm": "^1.0.0"
+    "remark-gfm": "^1.0.0",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
   },
   "scripts": {
-    "start": "concurrently \"cd server && nodemon index.js \" \"react-scripts start\" ",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "concurrently \"cd server && nodemon index.js \" \"craco start\" ",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
