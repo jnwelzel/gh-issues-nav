@@ -6,6 +6,7 @@ import {
   setIssuesState,
   setSearch,
 } from "./repositorySlice";
+import { SearchIcon } from "@heroicons/react/outline";
 
 export const IssuesForm = () => {
   const dispatch = useDispatch();
@@ -26,40 +27,50 @@ export const IssuesForm = () => {
   };
 
   return (
-    <React.Fragment>
-      <p>State</p>
-      <div>
-        <input
-          type="radio"
-          id="open"
-          name="state"
-          value="open"
-          checked={issuesState === "open"}
-          onChange={onChangeIssuesState}
-        />
-        <label htmlFor="open">Open</label>
+    <div className="flex flex-col my-5 items-center">
+      <div className="grid items-center grid-rows-1 grid-flow-col gap-4 grid-cols-3 mb-3">
+        <p>State</p>
+        <div className="flex items-center">
+          <input
+            type="radio"
+            id="open"
+            name="state"
+            value="open"
+            checked={issuesState === "open"}
+            onChange={onChangeIssuesState}
+            className="mr-2"
+          />
+          <label htmlFor="open">Open</label>
+        </div>
+        <div className="flex items-center">
+          <input
+            type="radio"
+            id="closed"
+            name="state"
+            value="closed"
+            checked={issuesState === "closed"}
+            onChange={onChangeIssuesState}
+            className="mr-2"
+          />
+          <label htmlFor="closed">Closed</label>
+        </div>
       </div>
-      <div>
-        <input
-          type="radio"
-          id="closed"
-          name="state"
-          value="closed"
-          checked={issuesState === "closed"}
-          onChange={onChangeIssuesState}
-        />
-        <label htmlFor="closed">Closed</label>
-      </div>
-      <p>Search</p>
-      <form onSubmit={onSubmitSearch}>
+      <form onSubmit={onSubmitSearch} className="flex items-center">
         <input
           type="search"
           name="search"
           id="search"
           onChange={onChangeSearch}
+          placeholder="in:title in:body"
+          className="mr-4 rounded-lg"
         />
-        <button type="submit">Search</button>
+        <button
+          type="submit"
+          className="flex items-center bg-blue-500 hover:bg-blue-600 rounded-lg py-2 px-4 text-white"
+        >
+          <SearchIcon className="w-5 mr-2" /> Search
+        </button>
       </form>
-    </React.Fragment>
+    </div>
   );
 };

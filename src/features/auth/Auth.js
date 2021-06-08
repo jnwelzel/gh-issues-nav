@@ -5,6 +5,7 @@ import { useHistory, useLocation } from "react-router-dom";
 
 import styles from "./Auth.module.css";
 import { fetchUserAsync, selectUser } from "./authSlice";
+import { ReactComponent as Icon } from "./github.svg";
 
 const Auth = () => {
   const dispatch = useDispatch();
@@ -37,8 +38,10 @@ const Auth = () => {
   return (
     <div className={styles.Auth}>
       <a
+        className="rounded-lg bg-black text-white py-2 px-4 flex hover:bg-gray-800"
         href={`https://github.com/login/oauth/authorize?scope=user&client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`}
       >
+        <Icon className="mr-2" />
         Login with Github
       </a>
     </div>

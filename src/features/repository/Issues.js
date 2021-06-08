@@ -2,6 +2,8 @@ import { useQuery } from "@apollo/client";
 import throttle from "lodash/throttle";
 import React, { useContext, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
+import classnames from "classnames";
+
 import IssueItem from "../../components/IssueItem";
 import AppContext from "../../contexts/AppContext";
 import { GET_REPOSITORY_ISSUES } from "./getRepositoryIssuesQuery";
@@ -12,6 +14,7 @@ import {
   selectSearch,
   selectState,
 } from "./repositorySlice";
+import { ExclamationIcon } from "@heroicons/react/outline";
 
 const onLoadMore = throttle((endCursor, hasNextPage, loading, fetchMore) => {
   if (hasNextPage && !loading) {
@@ -60,12 +63,24 @@ export const Issues = () => {
 
   return (
     <React.Fragment>
-      <h2>Issues ({totalCount})</h2>
+      <h2 className="text-xl my-5 flex items-center justify-center">
+        <ExclamationIcon
+          className={classnames(
+            "w-5 mr-2",
+            issuesState === "open" ? "text-yellow-400" : "text-green-400"
+          )}
+        />
+        Issues ({totalCount})
+      </h2>
       <IssuesForm />
-      {loading && <h2>Loading issues...</h2>}
-      {error && <h2>Ops, something went wrong while fetching the issues :(</h2>}
+      {loading && <h2 className="text-xl my-5">Loading...</h2>}
+      {error && (
+        <h2 className="text-xl my-5">
+          Ops, something went wrong while fetching the issues :(
+        </h2>
+      )}
       {!error && issues.length === 0 && !loading && (
-        <h2>Repository not found</h2>
+        <h2 className="text-xl my-5">No issues found</h2>
       )}
       {issues.length > 0 &&
         issues.map(({ node }) => (

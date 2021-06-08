@@ -5,8 +5,9 @@ import {
   selectRepoName,
   setRepoInfo,
 } from "./repositorySlice";
+import { PencilIcon, SaveIcon } from "@heroicons/react/outline";
 
-const RepoForm = (props) => {
+const RepoForm = () => {
   const dispatch = useDispatch();
   const repoLogin = useSelector(selectRepoLogin);
   const repoName = useSelector(selectRepoName);
@@ -40,32 +41,48 @@ const RepoForm = (props) => {
 
   return (
     <React.Fragment>
-      <h1>Choose a repo</h1>
+      <h1 className="my-5 text-xl">Choose a repo</h1>
       {isEditing && (
-        <form onSubmit={onSubmitRepository}>
+        <form
+          onSubmit={onSubmitRepository}
+          className="flex items-center justify-center"
+        >
           <input
+            autoComplete="off"
             type="text"
             name="login"
             placeholder="facebook"
             value={loginValue}
             onChange={onChangeLogin}
+            className="mt-0 w-auto px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black"
           />
+          <div className="w-10">/</div>
           <input
+            autoComplete="off"
             type="text"
             name="name"
             placeholder="react"
             value={nameValue}
             onChange={onChangeName}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            className="mt-0 w-auto px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-black"
           />
-          <button type="submit">Save</button>
+          <button
+            type="submit"
+            className="flex items-center bg-green-500 hover:bg-green-600 rounded-lg py-2 px-4 text-white ml-4"
+          >
+            <SaveIcon className="w-5 mr-2" /> Save
+          </button>
         </form>
       )}
       {!isEditing && (
-        <div>
-          {`${repoLogin}/${repoName}`}
-          <button type="button" onClick={onClickEdit}>
-            Edit
+        <div className="flex items-center justify-center">
+          <div className="mr-4">{`${repoLogin}/${repoName}`}</div>
+          <button
+            className="flex items-center bg-blue-500 hover:bg-blue-600 rounded-lg py-2 px-4 text-white"
+            type="button"
+            onClick={onClickEdit}
+          >
+            <PencilIcon className="w-5 mr-2" /> Edit
           </button>
         </div>
       )}
