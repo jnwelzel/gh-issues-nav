@@ -90,7 +90,7 @@ const Template = ({ children }) => {
       </div>
       <footer
         ref={footerRef}
-        className="flex-shrink-0 text-sm text-white bg-black flex items-center justify-center py-3"
+        className="flex-shrink-0 text-sm text-white bg-black flex items-center justify-center py-3 mt-20"
       >
         Made with <span className="text-red-500 mx-1">❤️</span> by
         <a

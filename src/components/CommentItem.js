@@ -5,12 +5,20 @@ import gfm from "remark-gfm";
 
 const CommentItem = ({ author, avatarUrl, body }) => {
   return (
-    <article>
-      <div>
-        <img width="40px" height="40px" src={avatarUrl} alt="Comment author" />
-        <p>{author}</p>
+    <article className="shadow-md mb-4 rounded-lg bg-gray-50">
+      <div className="bg-gradient-to-r from-gray-400 to-gray-200 flex items-center p-4 rounded-t-lg text-white">
+        <img
+          className="rounded-full"
+          width="40px"
+          height="40px"
+          src={avatarUrl}
+          alt="Comment author"
+        />
+        <p className="ml-2 text-sm">{author}</p>
       </div>
-      <ReactMarkdown remarkPlugins={[gfm]}>{body}</ReactMarkdown>
+      <ReactMarkdown className="p-4 text-sm" remarkPlugins={[gfm]}>
+        {body}
+      </ReactMarkdown>
     </article>
   );
 };
