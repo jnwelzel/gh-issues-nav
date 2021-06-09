@@ -68,7 +68,7 @@ const RepoForm = () => {
           />
           <button
             type="submit"
-            className="flex items-center bg-green-500 hover:bg-green-600 rounded-lg py-2 px-4 text-white ml-4"
+            className="flex items-center bg-green-500 hover:bg-green-600 rounded-full py-2 px-4 text-white ml-4"
           >
             <SaveIcon className="w-5 mr-2" /> Save
           </button>
@@ -78,7 +78,7 @@ const RepoForm = () => {
         <div className="flex items-center justify-center">
           <div className="mr-4">{`${repoLogin}/${repoName}`}</div>
           <button
-            className="flex items-center bg-blue-500 hover:bg-blue-600 rounded-lg py-2 px-4 text-white"
+            className="flex items-center bg-blue-500 hover:bg-blue-600 rounded-full py-2 px-4 text-white"
             type="button"
             onClick={onClickEdit}
           >

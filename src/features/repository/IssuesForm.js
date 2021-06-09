@@ -66,7 +66,7 @@ export const IssuesForm = () => {
         />
         <button
           type="submit"
-          className="flex items-center bg-blue-500 hover:bg-blue-600 rounded-lg py-2 px-4 text-white"
+          className="flex items-center bg-blue-500 hover:bg-blue-600 rounded-full py-2 px-4 text-white"
         >
           <SearchIcon className="w-5 mr-2" /> Search
         </button>

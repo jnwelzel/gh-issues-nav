@@ -49,6 +49,12 @@ const Auth = () => {
         <div className="font-bold text-white uppercase md:hidden mt-auto mb-24">
           GitHub Issues Navigator
         </div>
+        <div className="hidden md:flex absolute transform-gpu -translate-y-1/2 top-1/2 w-full items-center justify-center">
+          <h2 className="text-white w-23">
+            Explore GitHub issues using the power of{" "}
+            <strong className="text-green-300">GraphQL</strong>.
+          </h2>
+        </div>
       </div>
       <div className="items-center hidden md:flex md:w-2/4 justify-center relative overflow-hidden">
         <div className="fixed top-0">
