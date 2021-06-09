@@ -7,6 +7,8 @@ import { fetchUserAsync, selectUser } from "./authSlice";
 import { ReactComponent as GitHubIcon } from "./github.svg";
 import { ReactComponent as ShieldIllustration } from "./shield.svg";
 import { ArrowRightIcon } from "@heroicons/react/outline";
+import { ArrowUpIcon } from "@heroicons/react/outline";
+import { GitHubButton } from "./GitHubButton";
 
 const Auth = () => {
   const dispatch = useDispatch();
@@ -21,7 +23,7 @@ const Auth = () => {
     });
 
     // If Github API returns the code parameter
-    if (queryObject.code) {
+    if (queryObject?.code) {
       const { code } = queryObject;
 
       dispatch(
@@ -38,19 +40,30 @@ const Auth = () => {
   }
   return (
     <div className="flex">
-      <div className="bg-blue-500 flex w-2/4 h-screen items-start pr-10 overflow-hidden relative">
-        <ArrowRightIcon className="transform-gpu -translate-y-1/2 w-40 text-white top-1/2 -right-20 absolute" />
+      <div className="bg-blue-500 flex flex-col md:flex-row w-full md:w-2/4 h-screen items-center md:items-start overflow-hidden relative">
+        <ArrowRightIcon className="transform-gpu -translate-y-1/2 hidden md:block md:w-40 text-white top-1/2 -right-20 absolute" />
+        <ArrowUpIcon className="transform-gpu -translate-x-1/2 left-1/2 w-40 md:hidden text-white -bottom-16 absolute" />
         <ShieldIllustration className="max-w-md z-0" />
+        <ArrowRightIcon className="transform-gpu -translate-y-1/2 w-40 hidden md:block text-blue-500 top-1/2 -left-16 absolute" />
+        <GitHubButton className="md:hidden" />
+        <div className="font-bold text-white uppercase md:hidden mt-auto mb-24">
+          GitHub Issues Navigator
+        </div>
       </div>
-      <div className="flex items-center justify-center w-2/4 relative overflow-hidden">
+      <div className="items-center hidden md:flex md:w-2/4 justify-center relative overflow-hidden">
+        <div className="fixed top-0">
+          <p className="text-4xl mt-20">
+            <span className="font-bold text-blue-500">G</span>itHub
+          </p>
+          <p className="text-4xl">
+            <span className="font-bold text-blue-500">&nbsp;I</span>ssues
+          </p>
+          <p className="text-4xl">
+            <span className="font-bold text-blue-500">N</span>avigator
+          </p>
+        </div>
         <ArrowRightIcon className="transform-gpu -translate-y-1/2 w-40 text-blue-500 top-1/2 -left-16 absolute" />
-        <a
-          className="rounded-lg bg-gray-800 text-white py-2 px-4 flex hover:bg-black z-10"
-          href={`https://github.com/login/oauth/authorize?scope=user&client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`}
-        >
-          <GitHubIcon className="mr-2" />
-          Login with Github
-        </a>
+        <GitHubButton />
       </div>
     </div>
   );
