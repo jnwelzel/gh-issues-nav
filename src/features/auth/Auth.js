@@ -3,9 +3,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 
-import styles from "./Auth.module.css";
 import { fetchUserAsync, selectUser } from "./authSlice";
-import { ReactComponent as Icon } from "./github.svg";
+import { ReactComponent as GitHubIcon } from "./github.svg";
+import { ReactComponent as ShieldIllustration } from "./shield.svg";
+import { ArrowRightIcon } from "@heroicons/react/outline";
 
 const Auth = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const Auth = () => {
   const user = useSelector(selectUser);
 
   useEffect(() => {
-    // After requesting Github access, Github redirects back to your app with a code parameter
+    // After requesting Github access, Github redirects back to us with a code parameter
     const queryObject = QueryString.parse(location.search, {
       ignoreQueryPrefix: true,
     });
@@ -36,14 +37,21 @@ const Auth = () => {
     window.location.href = "/";
   }
   return (
-    <div className={styles.Auth}>
-      <a
-        className="rounded-lg bg-black text-white py-2 px-4 flex hover:bg-gray-800"
-        href={`https://github.com/login/oauth/authorize?scope=user&client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`}
-      >
-        <Icon className="mr-2" />
-        Login with Github
-      </a>
+    <div className="flex">
+      <div className="bg-blue-500 flex w-2/4 h-screen items-start pr-10 overflow-hidden relative">
+        <ArrowRightIcon className="transform-gpu -translate-y-1/2 w-40 text-white top-1/2 -right-20 absolute" />
+        <ShieldIllustration className="max-w-md z-0" />
+      </div>
+      <div className="flex items-center justify-center w-2/4 relative overflow-hidden">
+        <ArrowRightIcon className="transform-gpu -translate-y-1/2 w-40 text-blue-500 top-1/2 -left-16 absolute" />
+        <a
+          className="rounded-lg bg-gray-800 text-white py-2 px-4 flex hover:bg-black z-10"
+          href={`https://github.com/login/oauth/authorize?scope=user&client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}`}
+        >
+          <GitHubIcon className="mr-2" />
+          Login with Github
+        </a>
+      </div>
     </div>
   );
 };

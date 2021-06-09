@@ -21,7 +21,7 @@ const Template = ({ children }) => {
       <div className="flex-1">
         <Disclosure
           as="nav"
-          className="sticky bg-opacity-40 backdrop-filter backdrop-blur-md top-0 flex items-center bg-gray-800 px-5 py-3"
+          className="sticky backdrop-filter backdrop-blur-xl backdrop-saturate-150 bg-black bg-opacity-40 top-0 flex items-center px-5 py-3 border-b border-gray-200"
         >
           <div className="text-white">GitHub Issues Navigator</div>
           <Menu as="div" className="ml-auto relative">
