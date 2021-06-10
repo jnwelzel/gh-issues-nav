@@ -34,6 +34,7 @@ If you want to run GIN locally here's what you have to do:
 # Tools used
 - React with hooks and context
 - Redux
+- Helmet
 - React router
 - Apollo client
 - Tailwind CSS
