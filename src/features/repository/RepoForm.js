@@ -41,7 +41,7 @@ const RepoForm = () => {
 
   return (
     <React.Fragment>
-      <h1 className="my-5 text-xl">Choose a repo</h1>
+      <h1 className="my-5 text-xl text-center">Choose a repo</h1>
       {isEditing && (
         <form
           onSubmit={onSubmitRepository}

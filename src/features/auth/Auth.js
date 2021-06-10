@@ -2,9 +2,9 @@ import QueryString from "qs";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 import { fetchUserAsync, selectUser } from "./authSlice";
-import { ReactComponent as GitHubIcon } from "./github.svg";
 import { ReactComponent as ShieldIllustration } from "./shield.svg";
 import { ArrowRightIcon } from "@heroicons/react/outline";
 import { ArrowUpIcon } from "@heroicons/react/outline";
@@ -40,6 +40,9 @@ const Auth = () => {
   }
   return (
     <div className="flex">
+      <Helmet>
+        <title>GitHub Issues Navigator | Login</title>
+      </Helmet>
       <div className="bg-blue-500 flex flex-col md:flex-row w-full md:w-2/4 h-screen items-center md:items-start overflow-hidden relative">
         <ArrowRightIcon className="transform-gpu -translate-y-1/2 hidden md:block md:w-40 text-white top-1/2 -right-20 absolute" />
         <ArrowUpIcon className="transform-gpu -translate-x-1/2 left-1/2 w-40 md:hidden text-white -bottom-16 absolute" />

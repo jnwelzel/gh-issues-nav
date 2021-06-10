@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 import { useLocation, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
+import { Helmet } from "react-helmet";
 
 import { GET_ISSUE } from "./getIssueQuery";
 import CommentItem from "../../components/CommentItem";
@@ -17,6 +18,9 @@ const Issue = () => {
 
   return (
     <div className="px-5 pt-5">
+      <Helmet>
+        <title>GitHub Issues Navigator | Issue</title>
+      </Helmet>
       <h1 className="text-xl text-center mb-4">Issue #{id}</h1>
       {loading && <h1>Loading...</h1>}
       {!loading && error && (
