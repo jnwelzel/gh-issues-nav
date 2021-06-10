@@ -2,6 +2,7 @@ const express = require("express");
 const FormData = require("form-data");
 const fetch = require("node-fetch");
 const { client_id, redirect_uri, client_secret } = require("./config");
+var cors = require("cors");
 
 const app = express();
 
@@ -9,11 +10,7 @@ app.use(express.json());
 app.use(express.json({ type: "text/*" }));
 app.use(express.urlencoded({ extended: false }));
 
-// Enabled Access-Control-Allow-Origin", "*" in the header so as to by-pass the CORS error.
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
+app.use(cors());
 
 app.post("/authenticate", (req, res) => {
   const { code } = req.body;

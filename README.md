@@ -9,6 +9,7 @@ By default, GIN takes you to Facebook's `react` repository, but you also have th
 
 # Filtering and searching
 After you've successfully chosen a repository, GIN will show you a list of all the issues in that repository. To make viewing easier you can filter the issues by state: open or closed. By default GIN will show you the open issues first. You can also do a full text search in the `title` and `body` fields by typing the words in the text input and then clicking `Search` or by simply using the return key. Now you should see all the issues that match your search criteria.
+If you want to see more issues just scroll down to the bottom of the page and the next page of issues will be automatically loaded.
 
 # Viewing an issue
 After you've found your issue from the list, simply click on it and you'll be taken to a new screen where you can check out the issue in more detail. In this screen you can also view all the comments of that issue.

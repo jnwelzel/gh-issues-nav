@@ -70,6 +70,9 @@ const Auth = () => {
           <p className="text-4xl">
             <span className="font-bold text-blue-500">N</span>avigator
           </p>
+          <p className="mt-10 text-sm text-gray-600">
+            Hello! Please login using your GitHub account and have fun!
+          </p>
         </div>
         <ArrowRightIcon className="transform-gpu -translate-y-1/2 w-40 text-blue-500 top-1/2 -left-16 absolute" />
         <GitHubButton />

@@ -63,6 +63,7 @@ export const IssuesForm = () => {
           onChange={onChangeSearch}
           placeholder="in:title in:body"
           className="mr-4 rounded-lg"
+          value={searchValue}
         />
         <button
           type="submit"
