@@ -58,7 +58,7 @@ const Auth = () => {
       </div>
       <div className="items-center hidden md:flex md:w-2/4 justify-center relative overflow-hidden">
         <div className="fixed top-0">
-          <p className="text-4xl mt-20">
+          <p className="text-4xl mt-48">
             <span className="font-bold text-blue-500">G</span>itHub
           </p>
           <p className="text-4xl">

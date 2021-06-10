@@ -14,7 +14,7 @@ export const GitHubButton = ({ className, ...rest }) => {
       {...rest}
     >
       <GitHubIcon className="mr-2" />
-      Login with Github
+      Login with GitHub
     </a>
   );
 };

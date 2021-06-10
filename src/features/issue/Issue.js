@@ -25,7 +25,7 @@ const Issue = () => {
       {!loading && !error && (
         <Fragment>
           <article className="shadow-md mb-4 rounded-lg bg-gray-50">
-            <div className="bg-gradient-to-r from-blue-400 to-blue-200 flex items-center p-4 rounded-t-lg text-white">
+            <div className="bg-blue-400 flex items-center p-4 rounded-t-lg text-white">
               <img
                 src={data?.resource?.author?.avatarUrl}
                 className="rounded-full"

@@ -2,7 +2,7 @@
 GitHub Issues Navigator (hereafter referred to as GIN) enables anyone with a GitHub account to search and explore the issues of a repository using the power of GraphQL. Below you'll find a step-by-step guide on how to use GIN. Have fun!
 # Signing in
 First, in order to gain access to GitHub's GraphQL API we need a valid access token. This will also allow GitHub to identify you, the viewer. After you've signed up for GitHub, head over to GIN and click the `Login with GitHub` button.
-After clicking the button you'll be redirected to GitHub. If you're not logged in to GitHub you'll be requested to do so in this step. After logging in, click in `Authorize` and that's it! You'll be redirected back to GIN with everything ready to go.
+After clicking the button you'll be redirected to GitHub. If you're not logged in to GitHub you'll be requested to do so in this step. After logging in, click `Authorize` and that's it! You'll be redirected back to GIN's start page with everything ready to go.
 
 # Finding a repository
 By default, GIN takes you to Facebook's `react` repository, but you also have the freedom to choose any repository you want. In order to choose a different repository, click the `Edit` button and in the first input field type the name of the owner of the repository. In the second input field type the name of the repository. And finally, click the `Save` button. After clicking `Save` GIN will try to find the repository and automatically load all the open issues in that repository. In case you mispelled the owner's name or the repository name, GIN will simply display a message asking you to double check if the data is correct.

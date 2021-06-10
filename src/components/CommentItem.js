@@ -6,7 +6,7 @@ import gfm from "remark-gfm";
 const CommentItem = ({ author, avatarUrl, body }) => {
   return (
     <article className="shadow-md mb-4 rounded-lg bg-gray-50">
-      <div className="bg-gradient-to-r from-gray-400 to-gray-200 flex items-center p-4 rounded-t-lg text-white">
+      <div className="bg-gray-400 flex items-center p-4 rounded-t-lg text-white">
         <img
           className="rounded-full"
           width="40px"
