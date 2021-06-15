@@ -10,6 +10,7 @@ import Auth from "./features/auth/Auth";
 import { selectIsLoggedIn } from "./features/auth/authSlice";
 import Issue from "./features/issue/Issue";
 import Template from "./Template";
+import NoMatch from "./components/NoMatch";
 
 // A wrapper for <Route> that redirects to the login
 // screen if you're not yet authenticated.
@@ -51,6 +52,9 @@ const Routes = () => {
             <Issue />
           </Template>
         </PrivateRoute>
+        <Route path="*">
+          <NoMatch />
+        </Route>
       </Switch>
     </Router>
   );
