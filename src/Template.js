@@ -2,6 +2,8 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import classNames from "classnames";
 import React, { Fragment, useRef } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
 import { selectUser } from "./features/auth/authSlice";
 import { useDispatch } from "react-redux";
 import { logout } from "./features/auth/authSlice";
@@ -23,7 +25,9 @@ const Template = ({ children }) => {
           as="nav"
           className="sticky backdrop-filter backdrop-blur-xl backdrop-saturate-150 bg-black bg-opacity-40 top-0 flex items-center px-5 py-3 border-b border-gray-200"
         >
-          <div className="text-white">GitHub Issues Navigator</div>
+          <Link to="/" className="text-white">
+            GitHub Issues Navigator
+          </Link>
           <Menu as="div" className="ml-auto relative">
             {({ open }) => (
               <React.Fragment>

@@ -8,6 +8,7 @@ export const GET_ISSUE = gql`
         author {
           avatarUrl(size: 64)
           login
+          url
         }
         body
         title
@@ -16,6 +17,7 @@ export const GET_ISSUE = gql`
             author {
               login
               avatarUrl(size: 64)
+              url
             }
             body
             id
