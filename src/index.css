@@ -12,3 +12,10 @@ body {
   flex-direction: column;
   height: 100%;
 }
+
+code {
+  background-color: #ddd;
+  font-size: 14px;
+  padding: 3px;
+  border-radius: 5px;
+}
